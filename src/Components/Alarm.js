@@ -7,16 +7,13 @@ const playAlarmSound = () => {
   audio.play();
 };
 
-const AlarmClock = () => {
+const AlarmClock = ({alarmTime}) => {
   const [currentTime, setCurrentTime] = useState('');
-  const [alarmTime, setAlarmTime] = useState('');
   const [alarmMessage, setAlarmMessage] = useState('');
-
+ 
   const checkAlarmClock = useCallback(() => {
-    if (!alarmTime || alarmTime === 'undefined') {
-      setAlarmMessage();
-    } else {
-      setAlarmMessage( alarmTime );
+    if (alarmTime) {
+      setAlarmMessage(alarmTime);
       if (currentTime === alarmTime) {
         playAlarmSound();
       }
@@ -38,36 +35,12 @@ const AlarmClock = () => {
    
   }, [checkAlarmClock]);
 
-  const setAlarmTimeHandler = (event) => {
-    event.preventDefault();
-    const inputAlarmTimeModified = event.target.value + ':00';
-    setAlarmTime(inputAlarmTimeModified);
-    setAlarmMessage('');
-  };
-
- 
-
-  const setAlarm = () => {
-    if (!alarmTime || alarmTime === 'undefined') {
-      setAlarmMessage('Please set a valid alarm time.');
-    } else {
-      setAlarmMessage(  alarmTime );
-    }
-  };
-
   return (
     <div>
-      
-      {/* <h2>It is {currentTime}.</h2>
-      <h2>{alarmMessage}</h2> */}
-      <form className="alarm-div">
-        <input type="time" onChange={setAlarmTimeHandler} className='time'></input>
-        {/* <button  className="set-btn" type="button" onClick={setAlarm}>
-          Set Alarm
-        </button> */}
-      </form>
+      {alarmMessage && <p> Alarm set for: {alarmMessage}</p>}
     </div>
   );
 };
 
 export default AlarmClock;
+

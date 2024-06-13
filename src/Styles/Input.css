@@ -22,11 +22,6 @@
 .form div {
   width: 100%;
 }
-.form .title-div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .form .task-div {
   display: flex;
   align-items: center;
