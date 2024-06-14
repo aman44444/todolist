@@ -30,23 +30,23 @@ const Input = () => {
 
     return (
         <>
-         <div className="form-div">
-        <form className="form">
-          <div className="task-div">
-            <input
-              id="task-input"
-              type="text"
-              placeholder="Type Here..."
-              value={task}
-              onChange={onChangeHandler}
-            />
-            <input type="time" onChange={setAlarmTimeHandler} className="time" />
-            <button id="task-button" onClick={taskHandler}>
-              ADD
-            </button>
-          </div>
-        </form>
-      </div>
+         <div className="form-container">
+            <form className="form">
+               <div className="task-div">
+                  <input
+                      className="task-input"
+                      type="text"
+                      placeholder="Type Here..."
+                      value={task}
+                       onChange={onChangeHandler}
+                  />
+                   <input type="time" onChange={setAlarmTimeHandler} className="timer" />
+                   <button className="add-button" onClick={taskHandler}>
+                    ADD
+                   </button>
+               </div>
+            </form>
+         </div>
          <div className='container'>
           <div className='task-container'>
                 
