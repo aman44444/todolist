@@ -1,10 +1,20 @@
-.alarm-div {
+.alarm-clock {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1em;
+  background: #ffeb3b;
+  border-radius: 0.5em;
+  padding: 1em;
+  min-width: 5em;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
-.alarm-div input {
-  border-radius: 1.3em;
-  border: 1px solid rgb(197, 190, 190);
+.alarm-clock:hover {
+  background: #ffd700;
+}
+.alarm-clock p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
 }/*# sourceMappingURL=Alarm.css.map */
