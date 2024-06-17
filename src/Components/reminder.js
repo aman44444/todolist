@@ -7,7 +7,7 @@ const playAlarmSound = () => {
   audio.play();
 };
 
-const AlarmClock = ({alarmTime}) => {
+const AlarmClock = ({alarmTime, task, onAlarmTrigger}) => {
   const [currentTime, setCurrentTime] = useState('');
   const [alarmMessage, setAlarmMessage] = useState('');
  
@@ -16,9 +16,10 @@ const AlarmClock = ({alarmTime}) => {
       setAlarmMessage(alarmTime);
       if (currentTime === alarmTime) {
         playAlarmSound();
+        onAlarmTrigger(task);
       }
     }
-  },[alarmTime,currentTime]);
+  },[alarmTime,currentTime, onAlarmTrigger, task]);
 
 
   useEffect(() => {
@@ -43,4 +44,5 @@ const AlarmClock = ({alarmTime}) => {
 };
 
 export default AlarmClock;
+
 

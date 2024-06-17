@@ -1,0 +1,48 @@
+.notification {
+  position: fixed;
+  top: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: #040404;
+  border-radius: 15px;
+  padding: 1em 2em;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  animation: slide-down 0.5s ease-in-out;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notification p {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.close-btn {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 1em;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}/*# sourceMappingURL=Notification.css.map */

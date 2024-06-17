@@ -1,72 +1,56 @@
-// *{
-//     margin:0;
-//     padding: 0;
-//     box-sizing: border-box;
-// }
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-// @mixin flex{
-//     display:flex;
-//     justify-content: center;
-//     align-items: center;
-// }
-
-// .output-task{
-//     width:100%;
-//     height:auto;
-//     flex-direction: row;
-//     margin-top:0.5em;
-//     border-bottom: 1px solid rgb(227, 220, 220);
-//     word-wrap: break-word;
-//     overflow-wrap: break-word;
-//  @include flex;
-//  .task{
-//     width:80%;
-//     p{
-//         font-size: 1.1em;
-//     }
-//  }
-
-// }
-
-// .delete-btn{
-//     border: none;
-//     height:1.5em;
-//     width:2.5em;
-//     border-radius: 1.3em;
-//     background-color: black;
-//     color:white;
-// }
-
-// .task-number{
-
-// }
-.output-task {
-    display: flex;
-    justify-content: space-between;
+@mixin flex{
+    display:flex;
+    justify-content: center;
     align-items: center;
-    background: #f9f9f9;
-    padding: 1em;
-    border-radius: 0.5em;
+}
+
+.output-task{
+    width:100%;
+    height:auto;
+    flex-direction: row;
+    margin-top:0.5em;
+    border-bottom: 1px solid rgb(227, 220, 220);
     word-wrap: break-word;
     overflow-wrap: break-word;
-
-    .task-number {
-        flex-shrink: 0;
-        margin-right: 1em;
-        font-weight: bold;
+ @include flex;
+ .task{
+    width:80%;
+    p{
+        font-size: 1.1em;
     }
+ }
 
-    .task {
-        flex: 1;
-        padding-right: 1em;
-    }
+}
 
-    .delete-btn {
-        background: red;
-        color: white;
-        border: none;
-        padding: 0.5em 1em;
-        border-radius: 0.5em;
-        cursor: pointer;
-    }
+.delete-btn{
+    border: none;
+    height:1.5em;
+    width:2.5em;
+    border-radius: 1.3em;
+    background-color: black;
+    color:white;
+}
+
+.task-number{
+    flex-shrink: 0;
+     margin-right: 1em;
+    font-weight: bold;
+}
+
+
+
+.notifications {
+  position: fixed;
+  top: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
