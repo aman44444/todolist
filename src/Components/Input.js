@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../Styles/Input.css';
 import Output from './Output';
-import AlarmClock from './Alarm';
-
+import AlarmClock from './reminder';
 
 const Input = () => {
     const [task, setTask] = useState("")
     const [data, setData] = useState([])
     const [alarm, setAlarm] = useState('');
+    
     
     const onChangeHandler = (e) => setTask(e.target.value);
 
@@ -52,7 +52,7 @@ const Input = () => {
                 
               {data.map((value, index) => (
             <div className="task-alarm-pair" key={index}>
-              <Output id={index} task={value.task} onSelect={deleteItem} />
+              <Output id={index} number={index + 1} task={value.task} onSelect={deleteItem} />
               <AlarmClock alarmTime={value.alarm} />
             </div>
           ))}

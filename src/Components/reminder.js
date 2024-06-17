@@ -37,7 +37,7 @@ const AlarmClock = ({alarmTime}) => {
 
   return (
     <div className="alarm-clock">
-      {alarmMessage && <p> Alarm set for: {alarmMessage}</p>}
+      {alarmMessage && <p> Reminder set for: {alarmMessage}</p>}
     </div>
   );
 };

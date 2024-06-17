@@ -6,6 +6,7 @@ const Output =(props) => {
  
     return (
          <div className='output-task'>  
+            <div className='task-number'>{props.number}.</div>
             <div className='task'>
                  <p>{props.task}</p>
             </div>     
