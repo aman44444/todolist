@@ -5,7 +5,7 @@ const Notification = ({ task, onClose }) => {
   return (
     <div className="notification">
       <div className="notification-content">
-      <p>{`Alarm for task: ${task}`}</p>
+      <p>{`Reminder for task: ${task}`}</p>
       <button onClick={onClose} className="close-btn">Close</button>
       </div>
     </div>

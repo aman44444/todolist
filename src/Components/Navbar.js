@@ -5,9 +5,8 @@ import '../Styles/Navbar.css';
      return (
         <>
         <div className = 'navbar'>
-           <h2>T O D O</h2>
-           
-        </div>
+           <h2>TASK TAP</h2>
+         </div>
         </>
      )
 
