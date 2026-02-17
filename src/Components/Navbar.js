@@ -4,9 +4,11 @@ import '../Styles/Navbar.css';
  const Navbar = () => {
      return (
         <>
-        <div className = 'navbar'>
-           <h2>TODOIST</h2>
-         </div>
+        <nav className = 'navbarContainer'>
+            <div className ='navbar'>
+                <h2>TODOIST</h2>
+            </div>
+         </nav>
         </>
      )
 
