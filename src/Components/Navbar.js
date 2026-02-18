@@ -5,8 +5,14 @@ import '../Styles/Navbar.css';
      return (
         <>
         <nav className = 'navbarContainer'>
-            <div className ='navbar'>
+            <div className ='heading'>
                 <h2>TODOIST</h2>
+            </div>
+            <div className='nav-right'>
+               <button>
+                  Mode
+               </button>
+               <div className='line'></div>
             </div>
          </nav>
         </>
