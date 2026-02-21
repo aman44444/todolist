@@ -41,7 +41,7 @@
 }
 
 
-.navbarContainer:hover .mode-container {
+.heading:hover .mode-container {
   max-width: 120px; 
   opacity: 1;
   transform: translateX(0);
@@ -82,11 +82,11 @@
 }
 
 /* Hover → straighten */
-.navbarContainer:hover .arrow::before {
+.heading:hover .arrow::before {
   transform: rotate(-90deg);
 }
 
-.navbarContainer:hover .arrow::after {
+.heading:hover .arrow::after {
   transform: rotate(90deg);
 }
 
