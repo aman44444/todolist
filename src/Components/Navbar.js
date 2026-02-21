@@ -6,14 +6,19 @@ import '../Styles/Navbar.css';
         <>
         <nav className = 'navbarContainer'>
             <div className ='heading'>
-                <h2>TODOIST</h2>
+                <div>
+                  <h2>TODOIST</h2>
+                </div>
+                <div>
+                  <span className='arrow'></span>
+                </div>
+               <div className='mode-container'>
+                 <button className='button'>
+                   Mode
+                 </button>
+               </div>
             </div>
-            <div className='nav-right'>
-               <button>
-                  Mode
-               </button>
-               <div className='line'></div>
-            </div>
+
          </nav>
         </>
      )
