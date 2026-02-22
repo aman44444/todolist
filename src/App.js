@@ -1,6 +1,6 @@
 import './Styles/App.css'
 import Navbar from './Components/Navbar';
-import Input from './Components/Input';
+import Autocomplete from './Components/Autocomplete/Autocomplete';
 
 
 
@@ -8,7 +8,7 @@ function App() {
   return (
    <>
     <Navbar />
-    <Input/>
+    <Autocomplete/>
    </>
 
    
