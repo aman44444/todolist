@@ -1,4 +1,5 @@
 import useTodosStore from "../../store/store";
+import "../../Styles/TasksContainer/TasksContainer.css"
 
 const TasksContainer = () => {
 
@@ -6,16 +7,14 @@ const TasksContainer = () => {
 
     return(
         <div className="task-container">
-             <ul>    
+             <ul className="task-list">    
                  {tasks.map((task)=>(
-                  <>
-                    <li key={task.id}>
-                        {task.task}
-                    </li>   
-                    <button onClick={()=> removeTask(task.id)}>
-                        remove
-                    </button>   
-                  </>   
+                    <li key={task.id} className="task-item">
+                        <span className="task-text">{task.task}</span>
+                        <button className="remove-button" onClick={()=> removeTask(task.id)}>
+                           remove
+                        </button>   
+                    </li>     
                 ))
              }
              </ul>
