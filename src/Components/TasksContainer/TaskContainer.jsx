@@ -2,15 +2,20 @@ import useTodosStore from "../../store/store";
 
 const TasksContainer = () => {
 
-    const {tasks} = useTodosStore();
+    const {tasks, removeTask} = useTodosStore();
 
     return(
         <div className="task-container">
              <ul>    
                  {tasks.map((task)=>(
-                   <li key={task.id}>
+                  <>
+                    <li key={task.id}>
                         {task.task}
-                   </li>        
+                    </li>   
+                    <button onClick={()=> removeTask(task.id)}>
+                        remove
+                    </button>   
+                  </>   
                 ))
              }
              </ul>
