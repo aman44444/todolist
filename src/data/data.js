@@ -9,26 +9,48 @@ export const TaskSuggestions = [
   "Clean room",
 ]
 
-export const Modes = [
-  {
-    id: "normal",
+// export const Modes = [
+//   {
+//     id: "normal",
+//     label: "Normal Mode",
+//     rules: [
+//       "Alarm can be dismissed anytime",
+//       "Tasks are optional reminders",
+//       "No penalties for skipping tasks",
+//       "Flexible schedule",
+//     ],
+//   },
+//   {
+//     id: "strict",
+//     label: "Strict Mode",
+//     rules: [
+//       "Alarm cannot be auto dismissed",
+//       "Alarm repeats until manually stopped",
+//       "Tasks must be completed",
+//       "No skipping tasks allowed",
+//       "High discipline mode enabled",
+//     ],
+//   },
+// ];
+
+export const Modes = {
+  normal: {
     label: "Normal Mode",
     rules: [
       "Alarm can be dismissed anytime",
-      "Tasks are optional reminders",
+      "Tasks are flexible",
       "No penalties for skipping tasks",
-      "Flexible schedule",
+      "Free schedule management",
     ],
   },
-  {
-    id: "strict",
+  strict: {
     label: "Strict Mode",
     rules: [
       "Alarm cannot be auto dismissed",
-      "Alarm repeats until manually stopped",
+      "Alarm loops until manually stopped",
       "Tasks must be completed",
-      "No skipping tasks allowed",
-      "High discipline mode enabled",
+      "No skipping allowed",
+      "High discipline enforced",
     ],
   },
-];
+};

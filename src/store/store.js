@@ -4,6 +4,11 @@ import { createJSONStorage, persist } from "zustand/middleware";
 const useTodosStore = create(persist((set) => {
     return { 
        tasks: [],
+
+       mode: "normal", 
+
+       setMode: (newMode) => set({ mode: newMode }),
+
        addTasks:(task) => {
            set((state) => ({
                 tasks : [
