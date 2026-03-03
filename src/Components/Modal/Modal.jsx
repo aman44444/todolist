@@ -13,32 +13,26 @@ const Modal = ({
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <button className="modal-close" onClick={onClose}>
-          ×
-        </button>
-
-        <div className="modal-header">
-          <h2>{title}</h2>
-
-          <div className="mode-switch">
-            <span>Normal</span>
-
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={switchValue}
-                onChange={onSwitchChange}
-              />
-              <span className="slider"></span>
-            </label>
-
-            <span>Strict</span>
+        <div className="modal-top-container">
+          <button className="modal-close" onClick={onClose}>
+            ×
+          </button>
+          <div className="modal-header">
+            <h2>{title}</h2>
+            <div className="mode-switch">
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={switchValue}
+                  onChange={onSwitchChange}
+                />
+                <span className="slider"></span>
+              </label>
+              <span>Strict</span>
+            </div>
           </div>
         </div>
-
-        <div className="modal-body">
-          {children}
-        </div>
+        <div className="modal-body">{children}</div>
       </div>
     </div>
   );
