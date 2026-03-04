@@ -1,6 +1,6 @@
 import { useAutocomplete } from "./useAutocomplete";
 import { TaskSuggestions } from "../../data/data";
-import "../../Styles/Autocomplete.css"
+import "../../Styles/Autocomplete/Autocomplete.css"
 import useTodosStore from "../../store/store";
 
 const Autocomplete = () => {
@@ -25,7 +25,7 @@ const Autocomplete = () => {
   };
 
   return (
-    <div ref={containerRef}>
+    <div className="input-wrapper" ref={containerRef}>
       <form className="form" onSubmit={handleSubmit}>
         <input
           className="task-input"
