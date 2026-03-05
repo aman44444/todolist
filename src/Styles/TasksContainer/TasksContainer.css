@@ -5,10 +5,19 @@
   padding: 24px;
   border-radius: 12px;
   border: 1px solid #dce0e0;
+  max-height: 400px;
 }
 
 .task-list {
   list-style: none;
+  max-height: 350px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.task-list::-webkit-scrollbar {
+  display: none;
 }
 
 .task-item {
