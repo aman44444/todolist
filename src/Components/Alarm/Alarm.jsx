@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import useTodosStore from "../../store/store";
+import "../../Styles/Alarm/Alarm.css"
 
 const Alarm = ({ isActive, onStop }) => {
   const { mode } = useTodosStore();
