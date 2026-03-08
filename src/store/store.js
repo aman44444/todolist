@@ -14,7 +14,9 @@ const useTodosStore = create(persist((set) => {
                 tasks : [
                   ...state.tasks,{
                     id: Date.now().toString(),
-                    task
+                    text: task.text,
+                    alarmTime: task.alarmTime || null,
+                    completed: false,
                   }
                 ]
            }))

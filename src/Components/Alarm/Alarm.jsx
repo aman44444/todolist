@@ -1,43 +1,50 @@
-import { useEffect, useRef } from "react";
-import useTodosStore from "../../store/store";
-import "../../Styles/Alarm/Alarm.css"
+import { useState, useRef, useEffect } from "react";
+import "../../Styles/Alarm/Alarm.css";
 
-const Alarm = ({ isActive, onStop }) => {
-  const { mode } = useTodosStore();
-  const audioRef = useRef(null);
+const Alarm = ({ alarmTime, setAlarmTime }) => {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef(null);
+
 
   useEffect(() => {
-    if (!audioRef.current) return;
+    const handleClick = (e) => {
+      if (!containerRef.current?.contains(e.target)) {
+        setOpen(false);
+      }
+    };
 
-    if (isActive) {
-      audioRef.current.loop = true;
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-  }, [isActive]);
-
-  const handleStop = () => {
-    if (mode === "normal") {
-      onStop();
-    }
-  };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   return (
-    <div className="alarm-container">
-      <audio ref={audioRef} src="/alarm.mp3" />
+    <div className="alarm-wrapper" ref={containerRef}>
+      {/* Alarm Icon */}
+      <button
+        className="alarm-icon"
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        ⏰
+      </button>
 
-      {mode === "normal" && (
-        <button className="stop-alarm-btn" onClick={handleStop}>
-          Stop Alarm
-        </button>
-      )}
+      {open && (
+        <div className="alarm-popup">
+          <label>Set Alarm</label>
 
-      {mode === "strict" && (
-        <p className="strict-message">
-          Complete the task to stop the alarm
-        </p>
+          <input
+            type="time"
+            value={alarmTime || ""}
+            onChange={(e) => setAlarmTime(e.target.value)}
+          />
+
+          <button
+            className="alarm-save"
+            onClick={() => setOpen(false)}
+          >
+            Save
+          </button>
+        </div>
       )}
     </div>
   );

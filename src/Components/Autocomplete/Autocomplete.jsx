@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { useAutocomplete } from "./useAutocomplete";
 import { TaskSuggestions } from "../../data/data";
 import "../../Styles/Autocomplete/Autocomplete.css"
 import useTodosStore from "../../store/store";
+import Alarm from "../Alarm/Alarm";
+import Button from "../Button/Button";
+
 
 const Autocomplete = () => {
   const {
@@ -17,11 +21,21 @@ const Autocomplete = () => {
 
   const {addTasks} = useTodosStore();
 
+  const [alarmTime, setAlarmTime] = useState(null);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!task.trim()) return;
-    addTasks(task);
+    addTasks(
+      {
+        text: task,
+        alarmTime
+      }
+    );
     reset();
+    setAlarmTime(null);
   };
 
   return (
@@ -35,9 +49,14 @@ const Autocomplete = () => {
           onFocus={() => setIsOpen(true)}
           placeholder="Add a task..."
         />
-        <button className="add-button" type="submit">
+        <Alarm
+          alarmTime={alarmTime}
+          setAlarmTime={setAlarmTime}
+        />
+
+        <Button type="submit" variant="success">
           Add
-        </button>
+        </Button>
       </form>
 
       {isOpen && filteredSuggestions.length > 0 && (

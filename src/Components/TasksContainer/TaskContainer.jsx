@@ -3,17 +3,15 @@ import "../../Styles/TasksContainer/TasksContainer.css"
 
 const TasksContainer = () => {
 
-    const {tasks, removeTask} = useTodosStore();
+    const {tasks} = useTodosStore();
 
     return(
         <div className="task-container">
              <ul className="task-list">    
-                 {tasks.map((task)=>(
+                 {tasks.map((task) =>(
                     <li key={task.id} className="task-item">
-                        <span className="task-text">{task.task}</span>
-                        <button className="remove-button" onClick={()=> removeTask(task.id)}>
-                           remove
-                        </button>   
+                        <span className="task-text">{task.text}</span>
+                        {task.alarmTime && <span>{task.alarmTime}</span>}  
                     </li>     
                 ))
              }
