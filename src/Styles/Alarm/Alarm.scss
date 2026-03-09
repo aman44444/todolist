@@ -5,8 +5,18 @@
 .alarm-icon {
   font-size: 18px;
   background: none;
-  border: none;
   cursor: pointer;
+  color: #828080;
+  border:none;
+  padding: 0;       
+  margin: 0;
+  display: inline-flex;   
+  align-items: center;
+  justify-content: center;
+}
+
+.alarm-icon:hover {
+  color: #505050;
 }
 
 .alarm-popup {

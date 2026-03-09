@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "../../Styles/Alarm/Alarm.css";
+import { PiAlarmLight } from "react-icons/pi";
 
 const Alarm = ({ alarmTime, setAlarmTime }) => {
   const [open, setOpen] = useState(false);
@@ -19,13 +20,13 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
 
   return (
     <div className="alarm-wrapper" ref={containerRef}>
-      {/* Alarm Icon */}
       <button
         className="alarm-icon"
         type="button"
+        aria-label="Set alarm"
         onClick={() => setOpen((prev) => !prev)}
       >
-        ⏰
+       <PiAlarmLight size={30} />
       </button>
 
       {open && (
