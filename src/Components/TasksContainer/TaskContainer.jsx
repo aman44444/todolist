@@ -1,23 +1,29 @@
 import useTodosStore from "../../store/store";
-import "../../Styles/TasksContainer/TasksContainer.css"
+import "../../Styles/TasksContainer/TasksContainer.css";
+import Button from "../Button/Button";
 
 const TasksContainer = () => {
+  const { tasks, removeTask } = useTodosStore();
 
-    const {tasks} = useTodosStore();
-
-    return(
-        <div className="task-container">
-             <ul className="task-list">    
-                 {tasks.map((task) =>(
-                    <li key={task.id} className="task-item">
-                        <span className="task-text">{task.text}</span>
-                        {task.alarmTime && <span>{task.alarmTime}</span>}  
-                    </li>     
-                ))
-             }
-             </ul>
-        </div>
-    )
-}
+  return (
+    <div className="task-container">
+      <ul className="task-list">
+        {tasks.map((task) => (
+          <li key={task.id} className="task-item">
+            <span className="task-text">{task.text}</span>
+            {task.alarmTime && <span>{task.alarmTime}</span>}
+            <Button
+              size="sm"
+              variant="danger"
+              onClick={() => removeTask(task.id)}
+            >
+              Remove
+            </Button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default TasksContainer;
