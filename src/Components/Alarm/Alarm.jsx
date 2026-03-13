@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "../../Styles/Alarm/Alarm.css";
 import { PiAlarmLight } from "react-icons/pi";
+import alarmSound from "../../audio/alarm2.mp3";
 
 const Alarm = ({ alarmTime, setAlarmTime }) => {
   const [open, setOpen] = useState(false);
@@ -19,33 +20,39 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
   }, []);
 
   useEffect(() => {
-  if (!alarmTime) return;
+    if (!alarmTime) return;
 
-  const interval = setInterval(() => {
-    const now = new Date();
-    const currentTime =
-      now.getHours().toString().padStart(2, "0") +
-      ":" +
-      now.getMinutes().toString().padStart(2, "0");
+    const interval = setInterval(() => {
+      const now = new Date();
 
-    if (currentTime === alarmTime) {
-      audioRef.current?.play();
-    }
-  }, 1000);
+      const currentTime =
+        now.getHours().toString().padStart(2, "0") +
+        ":" +
+        now.getMinutes().toString().padStart(2, "0");
 
-  return () => clearInterval(interval);
-}, [alarmTime]);
+      if (currentTime === alarmTime.slice(0, 5)) {
+        if (audioRef.current) {
+          audioRef.current.loop = true;
+          audioRef.current.play().catch((err) => {});
+        }
+
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [alarmTime]);
 
   return (
     <div className="alarm-wrapper" ref={containerRef}>
-      <audio ref={audioRef} src="../audio/alarm2.mp3" preload="auto" />
+      <audio ref={audioRef} src={alarmSound} preload="auto" />
       <button
         className="alarm-icon"
         type="button"
         aria-label="Set alarm"
         onClick={() => setOpen((prev) => !prev)}
       >
-       <PiAlarmLight size={30} />
+        <PiAlarmLight size={30} />
       </button>
 
       {open && (
@@ -58,10 +65,7 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
             onChange={(e) => setAlarmTime(e.target.value)}
           />
 
-          <button
-            className="alarm-save"
-            onClick={() => setOpen(false)}
-          >
+          <button className="alarm-save" onClick={() => setOpen(false)}>
             Save
           </button>
         </div>
