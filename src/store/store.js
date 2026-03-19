@@ -12,9 +12,12 @@ const useTodosStore = create(
         setMode: (newMode) => set({ mode: newMode }),
 
         triggerAlarm: (taskId) =>
-          set({
+          set((state) => ({
             activeAlarmTaskId: taskId,
-          }),
+            tasks: state.tasks.map((task) =>
+              task.id === taskId ? { ...task, triggered: true } : task,
+            ),
+          })),
 
         stopAlarm: () =>
           set({
@@ -29,6 +32,7 @@ const useTodosStore = create(
                 text: task.text,
                 alarmTime: task.alarmTime || null,
                 completed: false,
+                triggered: false, 
               },
             ],
           }));
@@ -36,9 +40,8 @@ const useTodosStore = create(
         removeTask: (id) =>
           set((state) => ({
             tasks: state.tasks.filter((task) => task.id !== id),
-            activeAlarmTaskId: null, 
+            activeAlarmTaskId: null,
           })),
-      
       };
     },
     {
