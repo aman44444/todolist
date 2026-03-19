@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import "../../Styles/Alarm/Alarm.css";
 import { PiAlarmLight } from "react-icons/pi";
-import alarmSound from "../../audio/alarm2.mp3";
 
 const Alarm = ({ alarmTime, setAlarmTime }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
-  const audioRef = useRef(null);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -19,33 +17,12 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  useEffect(() => {
-    if (!alarmTime) return;
-
-    const interval = setInterval(() => {
-      const now = new Date();
-
-      const currentTime =
-        now.getHours().toString().padStart(2, "0") +
-        ":" +
-        now.getMinutes().toString().padStart(2, "0");
-
-      if (currentTime === alarmTime.slice(0, 5)) {
-        if (audioRef.current) {
-          audioRef.current.loop = true;
-          audioRef.current.play().catch((err) => {});
-        }
-
-        clearInterval(interval);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [alarmTime]);
+  const handleTimeChange = (e) => {
+    setAlarmTime(e.target.value);
+  };
 
   return (
     <div className="alarm-wrapper" ref={containerRef}>
-      <audio ref={audioRef} src={alarmSound} preload="auto" />
       <button
         className="alarm-icon"
         type="button"
@@ -62,7 +39,7 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
           <input
             type="time"
             value={alarmTime || ""}
-            onChange={(e) => setAlarmTime(e.target.value)}
+            onChange={handleTimeChange}
           />
 
           <button className="alarm-save" onClick={() => setOpen(false)}>
