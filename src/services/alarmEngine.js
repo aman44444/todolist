@@ -2,7 +2,7 @@ export class AlarmEngine {
   interval = null;
 
   start(tasks, triggerAlarm) {
-    if (this.interval) return; 
+    if (this.interval) return;
 
     this.interval = setInterval(() => {
       const now = new Date();
@@ -15,6 +15,7 @@ export class AlarmEngine {
       tasks.forEach((task) => {
         if (
           task.alarmTime &&
+          !task.triggered &&
           task.alarmTime.slice(0, 5) === currentTime
         ) {
           triggerAlarm(task.id);
