@@ -7,6 +7,7 @@ import { Modes } from "../data/data";
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mode, setMode } = useTodosStore();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const isStrict = mode === "strict";
 
@@ -17,10 +18,8 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbarContainer">
-        <div className="heading">
-          <div>
+        <div className={`heading ${isExpanded ? 'expanded' : ''}`}>
             <h2>TODOIST</h2>
-          </div>
           <div>
             <span className="arrow"></span>
           </div>

@@ -9,17 +9,12 @@
      justify-content: center;
      align-items: center;
      width:auto;
-     height:5em;
+     height:4em;
      font-family:Arial, Helvetica, sans-serif;
-
-    h2{
-        font-size: 2em;  
-    }
-
 }
 
 .heading {
-  padding: 0.5em 1em;
+  padding: 0.4em 0.8em;
   border-radius: 20px;
   margin-top: 1em;
   border: 1px dashed rgb(197, 190, 190);
@@ -27,6 +22,10 @@
   align-items: center;
   gap: 10px;
   overflow: hidden; 
+
+    h2{
+        font-size: 2em;  
+    }
 }
 
 .mode-container {
@@ -51,7 +50,7 @@
   position: relative;
   width: 16px;
   height: 16px;
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -104,4 +103,14 @@
 
 .button:hover {
     color:black;
+}
+
+@media (max-width: 600px) {
+  .heading {
+    padding: 0.3em 0.6em;
+  }
+
+  .heading h2 {
+    font-size: 1.2em;
+  }
 }
