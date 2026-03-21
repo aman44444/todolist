@@ -11,14 +11,16 @@ const TasksContainer = () => {
         {tasks.map((task) => (
           <li key={task.id} className="task-item">
             <span className="task-text">{task.text}</span>
-            {task.alarmTime && <span>{task.alarmTime}</span>}
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={() => removeTask(task.id)}
-            >
-              Remove
-            </Button>
+            <div className="task-footer">
+              {task.alarmTime && <span>{task.alarmTime}</span>}
+              <Button
+                size="sm"
+                variant="danger"
+                onClick={() => removeTask(task.id)}
+              >
+                Remove
+              </Button>
+            </div>
           </li>
         ))}
       </ul>
