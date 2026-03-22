@@ -47,4 +47,19 @@
   background: #2563eb;
   color: white;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .alarm-popup {
+    right: auto;
+    left: 0;
+    width: 160px;
+  }
+  .alarm-popup input {
+    padding: 8px;
+  }
+  .alarm-save {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
 }/*# sourceMappingURL=Alarm.css.map */
