@@ -1,0 +1,50 @@
+.picker-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 150px;
+}
+
+.picker-column {
+  height: 150px;
+  width: 60px;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  text-align: center;
+  scrollbar-width: none;
+}
+
+.picker-column::-webkit-scrollbar {
+  display: none;
+}
+
+.picker-item {
+  height: 36px;
+  line-height: 36px;
+  scroll-snap-align: center;
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+/* center highlight */
+.picker-container::after {
+  content: "";
+  position: absolute;
+  width: 140px;
+  height: 36px;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  pointer-events: none;
+}
+
+/* selected feel (fake effect) */
+.picker-column .picker-item:nth-child(odd) {
+  opacity: 0.6;
+}
+
+.picker-separator {
+  font-size: 18px;
+  font-weight: bold;
+}/*# sourceMappingURL=AlarmTimePicker.css.map */
