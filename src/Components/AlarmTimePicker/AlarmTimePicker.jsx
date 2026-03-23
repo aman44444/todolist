@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import "../../Styles/AlarmTimePicker/AlarmTimePicker.css";
 
-const generateNumbers = (max) =>
-  Array.from({ length: max }, (_, i) => i);
+const generateNumbers = (max) => Array.from({ length: max }, (_, i) => i);
 
 const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
   const hoursRef = useRef(null);
@@ -14,15 +13,50 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
     const hourIndex = Math.round(hoursRef.current.scrollTop / ITEM_HEIGHT);
     const minuteIndex = Math.round(minutesRef.current.scrollTop / ITEM_HEIGHT);
 
-    const hours = String(hourIndex).padStart(2, "0");
-    const minutes = String(minuteIndex).padStart(2, "0");
+    const newTime =
+      String(hourIndex).padStart(2, "0") +
+      ":" +
+      String(minuteIndex).padStart(2, "0");
 
-    setAlarmTime(`${hours}:${minutes}`);
+    if (newTime !== alarmTime) {
+      setAlarmTime(newTime);
+    }
   };
 
   useEffect(() => {
-    handleScroll();
-  }, []);
+    if (alarmTime) return;
+
+    const now = new Date();
+    const h = now.getHours();
+    const m = now.getMinutes();
+
+    const formatted =
+      String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+
+    setAlarmTime(formatted);
+
+    if (hoursRef.current) {
+      hoursRef.current.scrollTop = h * ITEM_HEIGHT;
+    }
+
+    if (minutesRef.current) {
+      minutesRef.current.scrollTop = m * ITEM_HEIGHT;
+    }
+  }, [alarmTime, setAlarmTime]);
+
+  useEffect(() => {
+    if (!alarmTime) return;
+
+    const [h, m] = alarmTime.split(":").map(Number);
+
+    if (hoursRef.current) {
+      hoursRef.current.scrollTop = h * ITEM_HEIGHT;
+    }
+
+    if (minutesRef.current) {
+      minutesRef.current.scrollTop = m * ITEM_HEIGHT;
+    }
+  }, [alarmTime]);
 
   return (
     <div className="picker-container">
