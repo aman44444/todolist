@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect,useCallback} from "react";
 import "../../Styles/Alarm/Alarm.css";
 import { PiAlarmLight } from "react-icons/pi";
+import AlarmPicker from "../AlarmTimePicker/AlarmTimePicker";
 
 
 const Alarm = ({ alarmTime, setAlarmTime }) => {
@@ -22,10 +23,6 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [close]);
 
-  const handleTimeChange = (e) => {
-    setAlarmTime(e.target.value);
-  };
-
   return (
     <div className="alarm-wrapper" ref={containerRef}>
       <button
@@ -39,18 +36,10 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
 
       {isOpen && (
         <div className="alarm-popup">
-          <label  htmlFor="alarm-time">Set Alarm</label>
-
-          <input
-            id="alarm-time"
-            type="time"
-            value={alarmTime || ""}
-            onChange={handleTimeChange}
-          />
-
-          <button className="alarm-save" onClick={() => setIsOpen(false)}>
-            Save
-          </button>
+          <AlarmPicker
+            alarmTime={alarmTime}
+            setAlarmTime={setAlarmTime}
+            />
         </div>
       )}
     </div>
