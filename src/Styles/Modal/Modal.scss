@@ -72,9 +72,9 @@
 }
 
 .switch {
-  position: relative;
+  position:relative;
   width: 50px;
-  height: 22px;
+  height: 23px;
 }
 
 .switch input {
@@ -97,7 +97,7 @@
   position: absolute;
   height: 20px;
   width: 20px;
-  top:1px;
+  top:1.5px;
   left: 2px;
   bottom: 2px;
   background: white;
