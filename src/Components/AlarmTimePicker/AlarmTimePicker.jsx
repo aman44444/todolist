@@ -74,7 +74,7 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
     <div className="picker-container">
       <div className="picker-column" ref={hoursRef} onScroll={handleScroll}>
         {addSpacers(generateNumbers(24)).map((h, idx) => (
-          <div key={idx} className="picker-item">
+          <div key={idx} className={`picker-item ${h === null ? "spacer" : ""}`}>
             {h !== null ? String(h).padStart(2, "0") :  ""}
           </div>
         ))}
@@ -84,7 +84,7 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
 
       <div className="picker-column" ref={minutesRef} onScroll={handleScroll}>
         {addSpacers(generateNumbers(60)).map((m, idx) => (
-          <div key={idx} className="picker-item">
+          <div key={idx} className={`picker-item ${m === null ? "spacer" : ""}`}>
              {m !== null ? String(m).padStart(2, "0") : ""}
           </div>
         ))}

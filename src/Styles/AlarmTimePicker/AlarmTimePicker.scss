@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 10px;
 
-  height: 150px;
+  height: 180px;
 }
 
 .picker-column {
@@ -16,7 +16,7 @@
   scroll-snap-type: y mandatory;
 
   text-align: center;
-
+  overscroll-behavior:none;
   scrollbar-width: none;
 }
 
@@ -32,6 +32,10 @@
 
   font-size: 18px;
   color: #9ca3af;
+}
+
+.picker-item.spacer {
+  scroll-snap-align: none;
 }
 
 /* center highlight */
