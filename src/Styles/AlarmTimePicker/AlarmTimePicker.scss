@@ -4,17 +4,18 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-
   height: 180px;
+  width: 100%;        
+  max-width: 220px;   
+  margin: 0 auto; 
 }
 
 .picker-column {
   height: 150px;
-  width: 60px;
-
+  width: 100%;      
+  max-width: 60px;      
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-
   text-align: center;
   overscroll-behavior:none;
   scrollbar-width: none;
@@ -42,7 +43,8 @@
 .picker-container::after {
   content: "";
   position: absolute;
-  width: 140px;
+  width: 100%;
+  max-width: 140px;
   height: 36px;
 
   border-top: 1px solid #e5e7eb;
@@ -59,4 +61,18 @@
 .picker-separator {
   font-size: 18px;
   font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .picker-item {
+    font-size: 16px;
+  }
+
+  .picker-column {
+    max-width: 50px;  /* slightly smaller */
+  }
+
+  .picker-separator {
+    font-size: 16px;
+  }
 }
