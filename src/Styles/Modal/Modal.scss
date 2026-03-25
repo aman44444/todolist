@@ -147,4 +147,29 @@
   }
 }
 
+@media (max-width: 480px) {
+  .modal-container{
+    width: 300px;
+  }
+   
+  .switch {
+   position:relative;
+   width: 40px;
+   height: 17px;
+  }
 
+  .slider::before {
+   content: "";
+   position: absolute;
+   height: 15px;
+   width: 15px;
+   top:1px;
+  } 
+
+  .switch input:checked + .slider::before {
+   transform: translateX(21px);
+  }
+
+}
+
+ 
