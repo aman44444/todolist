@@ -28,3 +28,8 @@ A modern Todo application built with **React + Zustand**, featuring task managem
   - Designed for discipline
   - (Extendable) Prevent stopping alarm until task is completed
 
+## Tech Stack
+- React.js → UI layer
+- Zustand → Global state management
+- JavaScript (ES6+)
+- SCSS → Styling and responsiveness
