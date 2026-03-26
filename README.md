@@ -32,4 +32,4 @@ A modern Todo application built with **React + Zustand**, featuring task managem
 - React.js → UI layer
 - Zustand → Global state management
 - JavaScript (ES6+)
-- SCSS → Styling and responsiveness
+- SASS → Styling and responsiveness
