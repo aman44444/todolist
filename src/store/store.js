@@ -32,7 +32,7 @@ const useTodosStore = create(
                 text: task.text,
                 alarmTime: task.alarmTime || null,
                 completed: false,
-                triggered: false, 
+                triggered: false,
               },
             ],
           }));

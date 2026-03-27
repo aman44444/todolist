@@ -10,7 +10,7 @@ const addSpacers = (arr) => {
   return [
     ...Array(SPACER_COUNT).fill(null),
     ...arr,
-    ...Array(SPACER_COUNT).fill(null)
+    ...Array(SPACER_COUNT).fill(null),
   ];
 };
 
@@ -19,16 +19,13 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
   const minutesRef = useRef(null);
 
   const handleScroll = () => {
-   const hourIndex = Math.round(hoursRef.current.scrollTop / ITEM_HEIGHT);
-   const minuteIndex = Math.round(minutesRef.current.scrollTop / ITEM_HEIGHT);
+    const hourIndex = Math.round(hoursRef.current.scrollTop / ITEM_HEIGHT);
+    const minuteIndex = Math.round(minutesRef.current.scrollTop / ITEM_HEIGHT);
 
-  
-   const hour = Math.max(0, Math.min(23, hourIndex - SPACER_COUNT));
-   const minute = Math.max(0, Math.min(59, minuteIndex - SPACER_COUNT));
+    const hour = Math.max(0, Math.min(23, hourIndex - SPACER_COUNT));
+    const minute = Math.max(0, Math.min(59, minuteIndex - SPACER_COUNT));
     const newTime =
-      String(hour).padStart(2, "0") +
-      ":" +
-      String(minute).padStart(2, "0");
+      String(hour).padStart(2, "0") + ":" + String(minute).padStart(2, "0");
 
     if (newTime !== alarmTime) {
       setAlarmTime(newTime);
@@ -48,11 +45,11 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
     setAlarmTime(formatted);
 
     if (hoursRef.current) {
-      hoursRef.current.scrollTop = (h + SPACER_COUNT) * ITEM_HEIGHT;;
+      hoursRef.current.scrollTop = (h + SPACER_COUNT) * ITEM_HEIGHT;
     }
 
     if (minutesRef.current) {
-      minutesRef.current.scrollTop = (m + SPACER_COUNT) * ITEM_HEIGHT;;
+      minutesRef.current.scrollTop = (m + SPACER_COUNT) * ITEM_HEIGHT;
     }
   }, [alarmTime, setAlarmTime]);
 
@@ -62,11 +59,11 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
     const [h, m] = alarmTime.split(":").map(Number);
 
     if (hoursRef.current) {
-      hoursRef.current.scrollTop = (h + SPACER_COUNT) * ITEM_HEIGHT;;
+      hoursRef.current.scrollTop = (h + SPACER_COUNT) * ITEM_HEIGHT;
     }
 
     if (minutesRef.current) {
-      minutesRef.current.scrollTop = (m + SPACER_COUNT) * ITEM_HEIGHT;;
+      minutesRef.current.scrollTop = (m + SPACER_COUNT) * ITEM_HEIGHT;
     }
   }, [alarmTime]);
 
@@ -74,8 +71,11 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
     <div className="picker-container">
       <div className="picker-column" ref={hoursRef} onScroll={handleScroll}>
         {addSpacers(generateNumbers(24)).map((h, idx) => (
-          <div key={idx} className={`picker-item ${h === null ? "spacer" : ""}`}>
-            {h !== null ? String(h).padStart(2, "0") :  ""}
+          <div
+            key={idx}
+            className={`picker-item ${h === null ? "spacer" : ""}`}
+          >
+            {h !== null ? String(h).padStart(2, "0") : ""}
           </div>
         ))}
       </div>
@@ -84,8 +84,11 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
 
       <div className="picker-column" ref={minutesRef} onScroll={handleScroll}>
         {addSpacers(generateNumbers(60)).map((m, idx) => (
-          <div key={idx} className={`picker-item ${m === null ? "spacer" : ""}`}>
-             {m !== null ? String(m).padStart(2, "0") : ""}
+          <div
+            key={idx}
+            className={`picker-item ${m === null ? "spacer" : ""}`}
+          >
+            {m !== null ? String(m).padStart(2, "0") : ""}
           </div>
         ))}
       </div>

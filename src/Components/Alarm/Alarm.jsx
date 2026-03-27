@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect,useCallback} from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import "../../styles/Alarm/Alarm.css";
 import { PiAlarmLight } from "react-icons/pi";
 import AlarmPicker from "../AlarmTimePicker/AlarmTimePicker";
-
 
 const Alarm = ({ alarmTime, setAlarmTime }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +9,6 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = useCallback(() => setIsOpen(false), []);
-
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -36,10 +34,7 @@ const Alarm = ({ alarmTime, setAlarmTime }) => {
 
       {isOpen && (
         <div className="alarm-popup">
-          <AlarmPicker
-            alarmTime={alarmTime}
-            setAlarmTime={setAlarmTime}
-            />
+          <AlarmPicker alarmTime={alarmTime} setAlarmTime={setAlarmTime} />
         </div>
       )}
     </div>

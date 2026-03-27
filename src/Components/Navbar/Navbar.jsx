@@ -19,12 +19,11 @@ const Navbar = () => {
     setIsExpanded((prev) => !prev);
   };
 
-
   return (
     <>
       <nav className="navbarContainer">
-        <div className={`heading ${isExpanded ? 'expanded' : ''}`}>
-            <h2>TODOIST</h2>
+        <div className={`heading ${isExpanded ? "expanded" : ""}`}>
+          <h2>TODOIST</h2>
           <div>
             <span className="arrow" onClick={toggleExpand}></span>
           </div>
