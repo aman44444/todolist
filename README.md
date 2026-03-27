@@ -36,10 +36,10 @@ A modern Todo application built with **React + Zustand**, featuring task managem
 
  ## Motivation
 
-Most Todo apps are simple CRUD projects.
-This project was built to go beyond that by:
+ Most Todo apps are simple CRUD projects.
+ This project was built to go beyond that by:
 
-Adding real-time behavior (alarms)
-Applying system design thinking in frontend
-Practicing state-driven architecture
-Simulating real-world app complexity
+ - Adding real-time behavior (alarms)
+ - Applying system design thinking in frontend
+ - Practicing state-driven architecture
+ - Simulating real-world app complexity
