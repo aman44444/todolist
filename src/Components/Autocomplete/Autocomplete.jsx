@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAutocomplete } from "./useAutocomplete";
 import { TaskSuggestions } from "../../data/data";
-import "../../Styles/Autocomplete/Autocomplete.css"
+import "../../styles/Autocomplete/Autocomplete.css"
 import useTodosStore from "../../store/store";
 import Alarm from "../Alarm/Alarm";
 import Button from "../Button/Button";

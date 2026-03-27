@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import useTodosStore from "../../store/store";
 import alarmSound from "../../audio/alarm2.mp3";
-import "../../Styles/AlarmModal/AlarmModal.css";
+import "../../styles/AlarmModal/AlarmModal.css";
 
 const AlarmPlayer = () => {
   const { activeAlarmTaskId, mode, stopAlarm } = useTodosStore();

@@ -33,3 +33,12 @@ A modern Todo application built with **React + Zustand**, featuring task managem
 - Zustand → Global state management
 - JavaScript (ES6+)
 - SASS → Styling and responsiveness
+
+## Folder Structure
+
+src/
+├── components/     → UI components
+├── store/          → Zustand store
+├── services/       → Alarm Engine (core logic)
+├── styles/         → CSS
+├── App.jsx         → Root connection layer

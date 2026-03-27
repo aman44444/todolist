@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../Styles/Navbar.css";
-import Modal from "../Components/Modal/Modal";
-import useTodosStore from "../store/store";
-import { Modes } from "../data/data";
+import "../../styles/Navbar/Navbar.css";
+import Modal from "../Modal/Modal";
+import useTodosStore from "../../store/store";
+import { Modes } from "../../data/data";
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

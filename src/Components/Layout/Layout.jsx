@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Autocomplete from "../Autocomplete/Autocomplete";
 import TasksContainer from "../TasksContainer/TaskContainer";
-import "../../Styles/Layout/Layout.css";
+import "../../styles/Layout/Layout.css";
 import AlarmPlayer from "../AlarmPlayer/AlarmPlayer";
 import useTodosStore from "../../store/store";
 import { AlarmEngine } from "../../services/alarmEngine";

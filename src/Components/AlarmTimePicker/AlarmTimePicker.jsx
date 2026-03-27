@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "../../Styles/AlarmTimePicker/AlarmTimePicker.css";
+import "../../styles/AlarmTimePicker/AlarmTimePicker.css";
 
 const ITEM_HEIGHT = 36;
 const SPACER_COUNT = 2;

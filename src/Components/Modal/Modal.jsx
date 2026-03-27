@@ -1,4 +1,4 @@
-import "../../Styles/Modal/Modal.css";
+import "../../styles/Modal/Modal.css";
 
 const Modal = ({
   isOpen,

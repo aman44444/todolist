@@ -1,5 +1,5 @@
 import useTodosStore from "../../store/store";
-import "../../Styles/TasksContainer/TasksContainer.css";
+import "../../styles/TasksContainer/TasksContainer.css";
 import Button from "../Button/Button";
 
 const TasksContainer = () => {
