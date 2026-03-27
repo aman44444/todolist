@@ -7,26 +7,18 @@ export const TaskSuggestions = [
   "Pay electricity bill",
   "Buy groceries",
   "Clean room",
-]
+];
 
 export const Modes = {
   normal: {
     label: "Normal Mode",
-    rules: [
-      "Alarm can be dismissed anytime",
-      "Tasks are flexible",
-      "No penalties for skipping tasks",
-      "Free schedule management",
-    ],
+    rules: ["Alarm can be auto dismissed"],
   },
   strict: {
     label: "Strict Mode",
     rules: [
       "Alarm cannot be auto dismissed",
       "Alarm loops until manually stopped",
-      "Tasks must be completed",
-      "No skipping allowed",
-      "High discipline enforced",
     ],
   },
 };
