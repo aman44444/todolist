@@ -21,12 +21,11 @@ A modern Todo application built with **React + Zustand**, featuring task managem
 
 ### Modes
 - **Normal Mode**
-  - Full flexibility
   - Can stop alarm anytime
 
 - **Strict Mode**
   - Designed for discipline
-  - (Extendable) Prevent stopping alarm until task is completed
+  - (Extendable) Prevent stopping alarm until manualy stop.
 
 ## Tech Stack
 - React.js → UI layer
