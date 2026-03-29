@@ -31,6 +31,7 @@
   scroll-snap-align: center;
   font-size: 18px;
   color: #9ca3af;
+  transition: color 0.15s ease, font-size 0.15s ease;
 }
 
 .picker-item.spacer {
@@ -49,9 +50,10 @@
   pointer-events: none;
 }
 
-/* selected feel (fake effect) */
-.picker-column .picker-item:nth-child(odd) {
-  opacity: 0.6;
+.picker-item.active {
+  color: #111827;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .picker-separator {
@@ -62,6 +64,9 @@
 @media (max-width: 480px) {
   .picker-item {
     font-size: 16px;
+  }
+  .picker-item.active {
+    font-size: 18px;
   }
   .picker-column {
     max-width: 50px; /* slightly smaller */

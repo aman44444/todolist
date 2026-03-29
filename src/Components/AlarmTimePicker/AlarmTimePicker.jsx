@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback} from "react";
 import "../../styles/AlarmTimePicker/AlarmTimePicker.css";
 
 const ITEM_HEIGHT = 36;
@@ -26,15 +26,22 @@ const scrollToValue = (ref, val) => {
     (val + SPACER_COUNT) * ITEM_HEIGHT + ITEM_HEIGHT / 2 - COL_HEIGHT / 2;
 };
 
+const updateHighlight = (ref, val) => {
+  ref.current.querySelectorAll(".picker-item[data-val]").forEach((el) => {
+    el.classList.toggle("active", parseInt(el.dataset.val) === val);
+  });
+};
 
 
 const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
   const hoursRef = useRef(null);
   const minutesRef = useRef(null);
 
+
 const handleHourScroll = useCallback(() => {
        if (!hoursRef.current) return;
        const hour = Math.max(0, Math.min(23, getSelected(hoursRef)));
+       updateHighlight(hoursRef, hour);
        setAlarmTime((prev) => {
           const prevMinute = prev ? prev.split(":")[1] : "00";
           const next = String(hour).padStart(2, "0") + ":" + prevMinute;
@@ -45,6 +52,7 @@ const handleHourScroll = useCallback(() => {
  const handleMinuteScroll = useCallback(() => {
     if (!minutesRef.current) return;
     const minute = Math.max(0, Math.min(59, getSelected(minutesRef)));
+    updateHighlight(minutesRef, minute); 
     setAlarmTime((prev) => {
       const prevHour = prev ? prev.split(":")[0] : "00";
       const next = prevHour + ":" + String(minute).padStart(2, "0");
@@ -63,8 +71,14 @@ const handleHourScroll = useCallback(() => {
       setAlarmTime(formatted);
     }
 
-    if (hoursRef.current) scrollToValue(hoursRef, h);
-    if (minutesRef.current) scrollToValue(minutesRef, m);
+    if (hoursRef.current) {
+       scrollToValue(hoursRef, h);
+       updateHighlight(hoursRef, h);
+    };
+    if (minutesRef.current) {
+       scrollToValue(minutesRef, m);
+      updateHighlight(minutesRef, m);
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -75,6 +89,7 @@ const handleHourScroll = useCallback(() => {
           <div
             key={idx}
             className={`picker-item ${h === null ? "spacer" : ""}`}
+             data-val={h !== null ? h : undefined} 
           >
             {h !== null ? String(h).padStart(2, "0") : ""}
           </div>
@@ -87,7 +102,8 @@ const handleHourScroll = useCallback(() => {
         {addSpacers(generateNumbers(60)).map((m, idx) => (
           <div
             key={idx}
-            className={`picker-item ${m === null ? "spacer" : ""}`}
+            className={`picker-item ${m === null ? "spacer" : ""} `}
+            data-val={m !== null ? m : undefined} 
           >
             {m !== null ? String(m).padStart(2, "0") : ""}
           </div>
