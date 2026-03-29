@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import "../../styles/AlarmTimePicker/AlarmTimePicker.css";
 
 const ITEM_HEIGHT = 36;
 const SPACER_COUNT = 2;
+const COL_HEIGHT = 150;
+
 
 const generateNumbers = (max) => Array.from({ length: max }, (_, i) => i);
 
@@ -14,62 +16,61 @@ const addSpacers = (arr) => {
   ];
 };
 
+const getSelected = (ref) => {
+  const scrollTop = ref.current.scrollTop;
+  return Math.round((scrollTop + COL_HEIGHT / 2) / ITEM_HEIGHT) - SPACER_COUNT;
+};
+
+const scrollToValue = (ref, val) => {
+  ref.current.scrollTop =
+    (val + SPACER_COUNT) * ITEM_HEIGHT + ITEM_HEIGHT / 2 - COL_HEIGHT / 2;
+};
+
+
+
 const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
   const hoursRef = useRef(null);
   const minutesRef = useRef(null);
 
-  const handleScroll = () => {
-    const hourIndex = Math.round(hoursRef.current.scrollTop / ITEM_HEIGHT);
-    const minuteIndex = Math.round(minutesRef.current.scrollTop / ITEM_HEIGHT);
+const handleHourScroll = useCallback(() => {
+       if (!hoursRef.current) return;
+       const hour = Math.max(0, Math.min(23, getSelected(hoursRef)));
+       setAlarmTime((prev) => {
+          const prevMinute = prev ? prev.split(":")[1] : "00";
+          const next = String(hour).padStart(2, "0") + ":" + prevMinute;
+          return next !== prev ? next : prev;
+    });
+}, [setAlarmTime]);
 
-    const hour = Math.max(0, Math.min(23, hourIndex - SPACER_COUNT));
-    const minute = Math.max(0, Math.min(59, minuteIndex - SPACER_COUNT));
-    const newTime =
-      String(hour).padStart(2, "0") + ":" + String(minute).padStart(2, "0");
+ const handleMinuteScroll = useCallback(() => {
+    if (!minutesRef.current) return;
+    const minute = Math.max(0, Math.min(59, getSelected(minutesRef)));
+    setAlarmTime((prev) => {
+      const prevHour = prev ? prev.split(":")[0] : "00";
+      const next = prevHour + ":" + String(minute).padStart(2, "0");
+      return next !== prev ? next : prev;
+    });
+  }, [setAlarmTime]);
 
-    if (newTime !== alarmTime) {
-      setAlarmTime(newTime);
-    }
-  };
 
   useEffect(() => {
-    if (alarmTime) return;
-
     const now = new Date();
-    const h = now.getHours();
-    const m = now.getMinutes();
+    const h = alarmTime ? Number(alarmTime.split(":")[0]) : now.getHours();
+    const m = alarmTime ? Number(alarmTime.split(":")[1]) : now.getMinutes();
 
-    const formatted =
-      String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
-
-    setAlarmTime(formatted);
-
-    if (hoursRef.current) {
-      hoursRef.current.scrollTop = (h + SPACER_COUNT) * ITEM_HEIGHT;
+    if (!alarmTime) {
+      const formatted = String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+      setAlarmTime(formatted);
     }
 
-    if (minutesRef.current) {
-      minutesRef.current.scrollTop = (m + SPACER_COUNT) * ITEM_HEIGHT;
-    }
-  }, [alarmTime, setAlarmTime]);
-
-  useEffect(() => {
-    if (!alarmTime) return;
-
-    const [h, m] = alarmTime.split(":").map(Number);
-
-    if (hoursRef.current) {
-      hoursRef.current.scrollTop = (h + SPACER_COUNT) * ITEM_HEIGHT;
-    }
-
-    if (minutesRef.current) {
-      minutesRef.current.scrollTop = (m + SPACER_COUNT) * ITEM_HEIGHT;
-    }
-  }, [alarmTime]);
+    if (hoursRef.current) scrollToValue(hoursRef, h);
+    if (minutesRef.current) scrollToValue(minutesRef, m);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="picker-container">
-      <div className="picker-column" ref={hoursRef} onScroll={handleScroll}>
+      <div className="picker-column" ref={hoursRef} onScroll={handleHourScroll}>
         {addSpacers(generateNumbers(24)).map((h, idx) => (
           <div
             key={idx}
@@ -82,7 +83,7 @@ const AlarmPicker = ({ alarmTime, setAlarmTime }) => {
 
       <div className="picker-separator">:</div>
 
-      <div className="picker-column" ref={minutesRef} onScroll={handleScroll}>
+      <div className="picker-column" ref={minutesRef} onScroll={handleMinuteScroll}>
         {addSpacers(generateNumbers(60)).map((m, idx) => (
           <div
             key={idx}
