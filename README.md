@@ -2,7 +2,10 @@
 
 A modern Todo application built with **React + Zustand**, featuring task management, alarms, and a unique **Normal / Strict Mode** system to improve productivity.
 
----
+## Screenshots 
+![Screenshot Description](./public/Images/Screenshots/home.png)
+![Screenshot Description](./public/Images/Screenshots/mode.png)
+![Screenshot Description](./public/Images/Screenshots/list.png)
 
 ## Features
 
