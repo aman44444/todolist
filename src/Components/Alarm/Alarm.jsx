@@ -39,7 +39,7 @@ export default function Alarm({ alarmTime, setAlarmTime }) {
       popup.style.maxWidth = Math.max(0, width - 24) + "px";
       const addButton = triggerRef.current.closest("form")?.querySelector('button[type="submit"]');
       const anchor = (addButton || triggerRef.current).getBoundingClientRect();
-      const rect = popup.getBoundingClientRect();
+      const rect = { width: popup.offsetWidth, height: popup.offsetHeight };
       const left = Math.max(originX + 12, Math.min(anchor.right - rect.width, originX + width - rect.width - 12));
       const below = anchor.bottom + 10;
       const above = anchor.top - rect.height - 10;

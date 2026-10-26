@@ -12,7 +12,9 @@ const clamp = (value, max) => Math.max(0, Math.min(max, value));
 // Positions and velocity use rows so text zoom preserves the same physics.
 function TimeWheel({ label, value, max, onChange, helpId }) {
   const element = useRef(null);
-  const [position, setPosition] = useState(value);
+  const [selected, setSelected] = useState(value);
+  const initial = useRef(value);
+  const items = useRef([]);
   const motion = useRef({ position: value, target: value, velocity: 0, frame: null, timer: null, drag: null, selected: value });
   const change = useRef(onChange);
   change.current = onChange;
@@ -26,10 +28,17 @@ function TimeWheel({ label, value, max, onChange, helpId }) {
   const present = useCallback((next) => {
     const state = motion.current;
     state.position = next;
-    setPosition(next);
+    items.current.forEach((item, number) => {
+      if (!item) return;
+      const distance = number - next;
+      const visible = Math.abs(distance) <= 3;
+      item.hidden = !visible;
+      if (visible) item.style.transform = "translateY(calc(" + distance + " * var(--picker-row) - 50%)) scale(" + (1 - Math.min(Math.abs(distance), 3) * 0.045) + "," + Math.cos(Math.min(Math.abs(distance), 3) * 0.24) + ")";
+    });
     const selected = clamp(Math.round(next), max);
     if (selected !== state.selected) {
       state.selected = selected;
+      setSelected(selected);
       change.current(selected);
     }
   }, [max]);
@@ -47,7 +56,7 @@ function TimeWheel({ label, value, max, onChange, helpId }) {
     const tick = (now) => {
       const dt = Math.min((now - previous) / 1000, 0.032);
       previous = now;
-      state.velocity += ((state.target - state.position) * 300 - state.velocity * 35) * dt;
+      state.velocity += ((state.target - state.position) * 210 - state.velocity * 24) * dt;
       const next = state.position + state.velocity * dt;
       if (Math.abs(next - state.target) < 0.002 && Math.abs(state.velocity) < 0.02) {
         present(state.target);
@@ -67,12 +76,14 @@ function TimeWheel({ label, value, max, onChange, helpId }) {
       stop();
       state.drag = null;
       state.velocity = 0;
+      state.wheelDelta = 0;
       state.selected = value;
       state.target = value;
       state.position = value;
-      setPosition(value);
+      setSelected(value);
+      present(value);
     }
-  }, [value, stop]);
+  }, [value, stop, present]);
   useEffect(() => {
     const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
     const update = () => {
@@ -90,12 +101,21 @@ function TimeWheel({ label, value, max, onChange, helpId }) {
       if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
       event.preventDefault();
       if (motion.current.drag) return;
-      stop();
       const height = node.getBoundingClientRect().height / 5 || 44;
       const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? height * 5 : 1);
-      motion.current.velocity = 0;
-      present(clamp(motion.current.position + delta / height, max));
-      motion.current.timer = setTimeout(() => settle(motion.current.position, 0), 100);
+      const state = motion.current;
+      state.wheelDelta = (state.wheelDelta || 0) + delta / height;
+      const steps = Math.trunc(state.wheelDelta);
+      if (steps) {
+        state.wheelDelta -= steps;
+        settle((state.frame ? state.target : Math.round(state.position)) + steps);
+      }
+      clearTimeout(state.timer);
+      state.timer = setTimeout(() => {
+        const remainder = Math.round(state.wheelDelta || 0);
+        state.wheelDelta = 0;
+        settle((state.frame ? state.target : Math.round(state.position)) + remainder);
+      }, 100);
     };
     node.addEventListener("wheel", wheel, { passive: false });
     return () => node.removeEventListener("wheel", wheel);
@@ -103,6 +123,7 @@ function TimeWheel({ label, value, max, onChange, helpId }) {
   const pointerDown = (event) => {
     if (event.button !== 0 || motion.current.drag) return;
     stop();
+    motion.current.wheelDelta = 0;
     event.currentTarget.focus({ preventScroll: true });
     event.currentTarget.setPointerCapture(event.pointerId);
     motion.current.drag = { id: event.pointerId, y: event.clientY, start: motion.current.position, moved: false, samples: [{ y: event.clientY, time: performance.now() }] };
@@ -146,22 +167,22 @@ function TimeWheel({ label, value, max, onChange, helpId }) {
     if (Object.prototype.hasOwnProperty.call(targets, event.key)) {
       event.preventDefault();
       state.drag = null;
+      state.wheelDelta = 0;
       settle(targets[event.key]);
     }
     // This control lives in the task form; Enter must not add a task.
     if (event.key === "Enter" || event.key === " ") event.preventDefault();
   };
   return <div className="picker-column" ref={element} tabIndex={0} role="spinbutton"
-    aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={clamp(Math.round(position), max)}
-    aria-valuetext={pad(clamp(Math.round(position), max))} aria-describedby={helpId}
+    aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={selected}
+    aria-valuetext={pad(selected)} aria-describedby={helpId}
     onKeyDown={keyDown} onPointerDown={pointerDown} onPointerMove={pointerMove}
     onPointerUp={(event) => pointerEnd(event)} onPointerCancel={(event) => pointerEnd(event, true)}
     onLostPointerCapture={(event) => pointerEnd(event, true)}>
     {Array.from({ length: max + 1 }, (_, number) => {
-      const distance = number - position;
-      if (Math.abs(distance) > 3) return null;
-      return <div className={"picker-item" + (number === clamp(Math.round(position), max) ? " active" : "")}
-        key={number} aria-hidden="true" style={{
+      const distance = number - initial.current;
+      return <div className={"picker-item" + (number === selected ? " active" : "")}
+        key={number} ref={(node) => { items.current[number] = node; }} aria-hidden="true" hidden={Math.abs(distance) > 3} style={{
           transform: "translateY(calc(" + distance + " * var(--picker-row) - 50%)) scale(" + (1 - Math.min(Math.abs(distance), 3) * 0.045) + "," + Math.cos(Math.min(Math.abs(distance), 3) * 0.24) + ")",
         }}>{pad(number)}</div>;
     })}
