@@ -31,6 +31,7 @@ const Autocomplete = () => {
       alarmTime,
     });
     reset();
+    setAlarmTime(null);
   };
 
   return (

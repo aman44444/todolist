@@ -1,0 +1,27 @@
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Autocomplete from "./Autocomplete";
+import useTodosStore from "../../store/store";
+jest.mock("../../store/store", () => ({ __esModule: true, default: jest.fn() }));
+test("adding a task saves its selected time and clears the alarm for the next task", () => {
+  const addTasks = jest.fn();
+  useTodosStore.mockReturnValue({ addTasks });
+  window.matchMedia = () => ({ matches: true });
+  render(<Autocomplete />);
+  fireEvent.click(screen.getByRole("button", { name: "Set alarm" }));
+  fireEvent.keyDown(screen.getByRole("spinbutton", { name: "Hour" }), { key: "Home" });
+  fireEvent.keyDown(screen.getByRole("spinbutton", { name: "Minute" }), { key: "End" });
+  fireEvent.click(screen.getByRole("button", { name: "Done" }));
+  const input = screen.getByPlaceholderText("Add a task...");
+  fireEvent.submit(input.closest("form"));
+  expect(addTasks).not.toHaveBeenCalled();
+  expect(screen.getByRole("button", { name: "Change alarm, 00:59" })).toBeInTheDocument();
+  fireEvent.change(input, { target: { value: "First task" } });
+  fireEvent.submit(input.closest("form"));
+  expect(addTasks).toHaveBeenLastCalledWith({ text: "First task", alarmTime: "00:59" });
+  expect(screen.getByRole("button", { name: "Set alarm" })).toBeInTheDocument();
+  fireEvent.change(input, { target: { value: "Second task" } });
+  fireEvent.submit(input.closest("form"));
+  expect(addTasks).toHaveBeenLastCalledWith({ text: "Second task", alarmTime: null });
+});
